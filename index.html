@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devya Code - Web Development Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: scaleY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes cardFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes toggleSlide {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(24px);
+            }
+        }
+
+        @keyframes sunRotate {
+            from {
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: rotate(45deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        @keyframes moonFadeIn {
+            from {
+                transform: rotate(-45deg) scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes slideInFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .stat-card {
+            animation: slideInFromBottom 0.6s ease-out forwards;
+            transform-origin: center;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .service-card {
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(34, 211, 238, 0.25);
+        }
+
+        .contact-info-card {
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .contact-info-card:hover {
+            transform: translateX(15px) translateY(-6px);
+            box-shadow: 0 16px 40px rgba(34, 211, 238, 0.2);
+        }
+
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(34, 211, 238, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            pointer-events: none;
+        }
+
+        .btn-primary:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        /* Premium dark mode toggle switch */
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+            border: 2px solid #475569;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 0 3px;
+        }
+
+        .theme-toggle:hover {
+            border-color: #64748b;
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+        }
+
+        .theme-toggle.active {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-color: #0ea5e9;
+        }
+
+        .toggle-circle {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border-radius: 50%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
+        }
+
+        .theme-toggle.active .toggle-circle {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            /* Dynamic transform based on text direction - will be set by JavaScript */
+            transform: translateX(var(--toggle-direction, 30px));
+            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+        }
+
+        .toggle-circle svg {
+            width: 14px;
+            height: 14px;
+            animation: sunRotate 0.3s ease-out forwards;
+        }
+
+        .theme-toggle.active .toggle-circle svg {
+            animation: none;
+        }
+
+        .toggle-circle .moon-icon {
+            width: 14px;
+            height: 14px;
+            animation: moonFadeIn 0.3s ease-out forwards;
+        }
+
+        .theme-toggle:not(.active) .moon-icon {
+            display: none;
+        }
+
+        .theme-toggle.active .sun-icon {
+            display: none;
+        }
+
+        /* Language button enhancement */
+        .lang-toggle {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(34, 211, 238, 0.2);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .lang-toggle:hover::before {
+            left: 0;
+        }
+
+        .lang-toggle:active {
+            transform: scale(0.95);
+        }
+
+        html.dark {
+            color-scheme: dark;
+        }
+
+        /* Light mode color scheme */
+        body.light-mode {
+            background-color: #f5f7fa;
+            color: #1a202c;
+        }
+
+        body.light-mode .nav {
+            background: rgba(255, 255, 255, 0.98) !important;
+            border-color: #e0e7ff !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        /* Hero section now properly changes to light colors in light mode */
+        body.light-mode #home {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+        }
+
+        body.light-mode #home::before {
+            background: none !important;
+        }
+
+        /* Updated all section backgrounds for light mode */
+        body.light-mode #about,
+        body.light-mode #services,
+        body.light-mode #contact {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #f5f7fa 100%) !important;
+        }
+
+        body.light-mode h1 {
+            color: #0f172a !important;
+        }
+
+        body.light-mode h2 {
+            color: #1e293b !important;
+        }
+
+        body.light-mode h3 {
+            color: #334155 !important;
+        }
+
+        body.light-mode p,
+        body.light-mode .text-lg {
+            color: #475569 !important;
+        }
+
+        body.light-mode .text-slate-300,
+        body.light-mode .text-slate-400,
+        body.light-mode .text-slate-500 {
+            color: #64748b !important;
+        }
+
+        body.light-mode .text-white {
+            color: #1e293b !important;
+        }
+
+        body.light-mode .bg-gradient-to-r.from-cyan-400 {
+            background: linear-gradient(90deg, #0ea5e9, #06b6d4) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+        }
+
+        body.light-mode .bg-slate-800,
+        body.light-mode .bg-slate-800\/50 {
+            background-color: #f0f4f8 !important;
+        }
+
+        body.light-mode .bg-slate-900 {
+            background-color: #f8fafc !important;
+        }
+
+        body.light-mode .border-slate-700,
+        body.light-mode .border-slate-800 {
+            border-color: #cbd5e1 !important;
+        }
+
+        body.light-mode input,
+        body.light-mode textarea {
+            background-color: #ffffff !important;
+            border-color: #cbd5e1 !important;
+            color: #1e293b !important;
+        }
+
+        body.light-mode input::placeholder,
+        body.light-mode textarea::placeholder {
+            color: #94a3b8 !important;
+        }
+
+        body.light-mode input:focus,
+        body.light-mode textarea:focus {
+            border-color: #0ea5e9 !important;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1) !important;
+        }
+
+        body.light-mode footer {
+            background-color: #f9fafb !important;
+            border-color: #e5e7eb !important;
+        }
+
+        /* Enhanced service and contact cards for light mode */
+        body.light-mode .service-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+            border-color: #cbd5e1 !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        body.light-mode .service-card:hover {
+            border-color: #0ea5e9 !important;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%) !important;
+            box-shadow: 0 16px 40px rgba(14, 165, 233, 0.15) !important;
+        }
+
+        /* Contact info cards styling for light mode */
+        body.light-mode .contact-info-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+            border-color: #cbd5e1 !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        body.light-mode .contact-info-card:hover {
+            border-color: #0ea5e9 !important;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%) !important;
+            box-shadow: 0 16px 40px rgba(14, 165, 233, 0.15) !important;
+        }
+
+        /* Contact form specific styling for light mode */
+        /* body.light-mode #contactForm {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+            border-color: #cbd5e1 !important;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08) !important;
+        } */
+
+        body.light-mode #contactForm input,
+        body.light-mode #contactForm textarea {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%) !important;
+            border-color: #cbd5e1 !important;
+            color: #1e293b !important;
+        }
+
+        body.light-mode #contactForm input:focus,
+        body.light-mode #contactForm textarea:focus {
+            background: #ffffff !important;
+            border-color: #0ea5e9 !important;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1) !important;
+        }
+
+        body.light-mode #contactForm label {
+            color: #334155 !important;
+        }
+
+        body.light-mode .stat-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%) !important;
+            border-color: #cbd5e1 !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        body.light-mode .stat-card:hover {
+            border-color: #0ea5e9 !important;
+            background: linear-gradient(135deg, #e0f2fe 0%, #cffafe 100%) !important;
+            box-shadow: 0 12px 32px rgba(14, 165, 233, 0.1) !important;
+        }
+
+        body.light-mode .cyan-500\/10 {
+            background-color: rgba(6, 182, 212, 0.08) !important;
+        }
+
+        body.light-mode .cyan-500\/20 {
+            background-color: rgba(6, 182, 212, 0.12) !important;
+        }
+
+        body.light-mode .inline-flex.items-center.gap-2 {
+            background-color: rgba(6, 182, 212, 0.1) !important;
+            border-color: rgba(6, 182, 212, 0.3) !important;
+        }
+
+        /* Theme toggle styling for light mode */
+        body.light-mode .theme-toggle {
+            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%) !important;
+            border-color: #bfdbfe !important;
+        }
+
+        body.light-mode .theme-toggle:hover {
+            border-color: #0ea5e9 !important;
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.2) !important;
+        }
+
+        body.light-mode .lang-toggle {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%) !important;
+            border-color: #cbd5e1 !important;
+            color: #0ea5e9 !important;
+        }
+
+        body.light-mode .lang-toggle:hover {
+            background: linear-gradient(135deg, #e0f2fe 0%, #cffafe 100%) !important;
+            border-color: #0ea5e9 !important;
+        }
+
+        .floating-element {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { transform: translateY(0) scale(1); opacity: .4; }
+            50% { transform: translateY(-6px) scale(1.6); opacity: 1; }
+        }
+
+        .floating-dots .dot {
+            animation: pulseGlow 1.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-white transition-colors duration-300">
+    <!-- Navigation bar with language and dark mode toggle -->
+    <nav class="nav sticky top-0 z-50 bg-slate-950/95 backdrop-blur border-b border-slate-800 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Left: Logo -->
+            <div class="text-xl font-bold">
+                <span class="text-cyan-400">Devya</span><span class="text-white"> Code</span>
+            </div>
+
+            <!-- Center: Navigation links -->
+            <div class="hidden md:flex gap-8 absolute left-1/2 -translate-x-1/2">
+                <a href="#home" class="hover:text-cyan-400 transition text-sm font-medium">Home</a>
+                <a href="#about" class="hover:text-cyan-400 transition text-sm font-medium">About</a>
+                <a href="#services" class="hover:text-cyan-400 transition text-sm font-medium">Services</a>
+                <a href="#contact" class="hover:text-cyan-400 transition text-sm font-medium">Contact</a>
+            </div>
+
+            <!-- Right: Language and dark mode toggles -->
+            <div class="flex gap-3 items-center">
+                <!-- Language toggle -->
+                <button id="langToggle" class="lang-toggle px-4 py-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 font-semibold transition text-sm border border-cyan-500/30 hover:border-cyan-500/60">
+                    EN
+                </button>
+
+                <!-- Premium dark mode toggle switch -->
+                <button id="darkToggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <div class="toggle-circle">
+                        <svg class="sun-icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l-2.83-2.83a1 1 0 10-1.414 1.414l2.83 2.83a1 1 0 001.414-1.414zM2.05 6.464A1 1 0 103.464 5.05l-1.414 1.414zm12 12l1.414-1.414a1 1 0 10-1.414-1.414l-1.414 1.414a1 1 0 101.414 1.414zM5.464 5.465A1 1 0 106.878 4.05L5.464 5.464z" clip-rule="evenodd"></path>
+                        </svg>
+                        <svg class="moon-icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen px-4 flex items-center justify-center overflow-hidden section-dark">
+        <div class="absolute inset-0 bg-gradient-to-br">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 mb-8 animate-fade-in-up">
+                <span class="text-sm font-medium text-cyan-300">✨ Welcome to Devya Code</span>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight animate-fade-in-up" style="animation-delay: 0.1s;">
+                <span data-en="Build Your" data-ar="قم ببناء">Build Your</span>
+                <span class="block bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent" data-en="Digital Future" data-ar="مستقبلك الرقمي">Digital Future</span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed animate-fade-in-up" style="animation-delay: 0.2s;" data-en="We create cutting-edge web solutions that drive business growth and innovation" data-ar="نحن ننشئ حلولاً ويب متطورة تدفع النمو والابتكار في أعمالك">
+                We create cutting-edge web solutions that drive business growth and innovation
+            </p>
+
+            <div class="mb-12 animate-fade-in-up" style="animation-delay: 0.3s;">
+                <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="handleSubscribe(event)">
+                    <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-lg bg-slate-800/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition" required>
+                    <button type="submit" class="btn-primary px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold rounded-lg transition" data-en="Subscribe" data-ar="اشترك">Subscribe</button>
+                </form>
+                <p class="text-sm text-slate-500 mt-3" data-en="Get updates and exclusive offers" data-ar="احصل على التحديثات والعروض الحصرية">Get updates and exclusive offers</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style="animation-delay: 0.4s;">
+                <a href="#contact" class="btn-primary inline-block px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold rounded-lg transition" data-en="Free Consultation" data-ar="استشارة مجانية">Free Consultation</a>
+                <a href="#services" class="btn-primary inline-block px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-lg border border-slate-700 transition" data-en="Learn More" data-ar="اعرف المزيد">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Replaced scroll indicator with floating elements -->
+        <!-- Floating Dots Indicator -->
+        <div class="floating-dots flex items-center gap-2 absolute left-1/2 -translate-x-1/2 bottom-3 md:bottom-16">
+            <div class="dot w-3 h-3 rounded-full bg-cyan-400"></div>
+            <div class="dot w-3 h-3 rounded-full bg-blue-400" style="animation-delay: .2s"></div>
+            <div class="dot w-3 h-3 rounded-full bg-cyan-400" style="animation-delay: .4s"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="relative py-24 px-4 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 overflow-hidden">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4" data-en="About Devya Code" data-ar="عن ديفيا كود">About Devya Code</h2>
+                <p class="text-xl text-slate-400" data-en="Transforming ideas into innovative digital solutions since 2020" data-ar="تحويل الأفكار إلى حلول رقمية مبتكرة منذ 2020">Transforming ideas into innovative digital solutions since 2020</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-16 items-center mb-16">
+                <div class="space-y-6">
+                    <p class="text-lg text-slate-300 leading-relaxed" data-en="Since 2020, Devya Code has been transforming ideas into innovative digital solutions. We specialize in delivering high-quality web development services that empower businesses to succeed in the digital world." data-ar="منذ 2020، تعمل ديفيا كود على تحويل الأفكار إلى حلول رقمية مبتكرة. نتخصص في تقديم خدمات تطوير ويب عالية الجودة التي تمكن الشركات من النجاح في العالم الرقمي.">Since 2020, Devya Code has been transforming ideas into innovative digital solutions. We specialize in delivering high-quality web development services that empower businesses to succeed in the digital world.</p>
+                </div>
+                <div class="relative h-80">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-2xl blur-2xl"></div>
+                    <div class="relative bg-gradient-to-br from-cyan-500/10 to-blue-500/10 backdrop-blur-md border border-slate-800 rounded-2xl h-full flex items-center justify-center p-8 hover:border-cyan-500/50 transition group cursor-pointer">
+                        <div class="text-center group-hover:scale-110 transition-transform duration-300">
+                            <div class="text-6xl mb-4">💻</div>
+                            <p class="text-white font-semibold text-lg" data-en="Innovative Solutions" data-ar="حلول مبتكرة">Innovative Solutions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="stat-card bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition group cursor-pointer">
+                    <p class="text-3xl md:text-4xl font-bold text-cyan-400 mb-2 group-hover:scale-110 transition-transform duration-300 inline-block">50+</p>
+                    <p class="text-slate-400 text-sm md:text-base" data-en="Projects Delivered" data-ar="مشروع تم تسليمه">Projects Delivered</p>
+                </div>
+                <div class="stat-card bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition group cursor-pointer">
+                    <p class="text-3xl md:text-4xl font-bold text-cyan-400 mb-2 group-hover:scale-110 transition-transform duration-300 inline-block">10+</p>
+                    <p class="text-slate-400 text-sm md:text-base" data-en="Happy Clients" data-ar="عميل سعيد">Happy Clients</p>
+                </div>
+                <div class="stat-card bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition group cursor-pointer">
+                    <p class="text-3xl md:text-4xl font-bold text-cyan-400 mb-2 group-hover:scale-110 transition-transform duration-300 inline-block">8+</p>
+                    <p class="text-slate-400 text-sm md:text-base" data-en="Years Experience" data-ar="سنوات خبرة">Years Experience</p>
+                </div>
+                <div class="stat-card bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition group cursor-pointer">
+                    <p class="text-3xl md:text-4xl font-bold text-cyan-400 mb-2 group-hover:scale-110 transition-transform duration-300 inline-block">100%</p>
+                    <p class="text-slate-400 text-sm md:text-base" data-en="Satisfaction Rate" data-ar="معدل الرضا">Satisfaction Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="relative py-24 px-4 bg-slate-950 overflow-hidden">
+        <div class="absolute top-1/2 right-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl"></div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4" data-en="Our Services" data-ar="خدماتنا">Our Services</h2>
+                <p class="text-xl text-slate-400" data-en="Comprehensive solutions designed to elevate your business" data-ar="حلول شاملة مصممة لرفع مستوى عملك">Comprehensive solutions designed to elevate your business</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Web Development -->
+                <div class="service-card group relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-xl p-8 hover:border-cyan-500/50 transition">
+                    <div class="mb-4 inline-block p-3 rounded-lg bg-cyan-500/10 group-hover:bg-cyan-500/20 transition">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4m0 6l-4 4m-4-4l-4-4m0 6a2 2 0 100-4 2 2 0 000 4z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3" data-en="Web Development" data-ar="تطوير الويب">Web Development</h3>
+                    <p class="text-slate-400 leading-relaxed" data-en="Custom web applications built with latest technologies for optimal performance and scalability." data-ar="تطبيقات ويب مخصصة مبنية بأحدث التقنيات لأداء وقابلية توسع مثالية.">Custom web applications built with latest technologies for optimal performance and scalability.</p>
+                </div>
+
+                <!-- UI/UX Design -->
+                <div class="service-card group relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-xl p-8 hover:border-cyan-500/50 transition">
+                    <div class="mb-4 inline-block p-3 rounded-lg bg-cyan-500/10 group-hover:bg-cyan-500/20 transition">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.5a2 2 0 00-1 .268"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3" data-en="UI/UX Design" data-ar="تصميم الواجهة والتجربة">UI/UX Design</h3>
+                    <p class="text-slate-400 leading-relaxed" data-en="Beautiful, intuitive designs that engage users and enhance your brand presence." data-ar="تصاميم جميلة وحدسية تجذب المستخدمين وتعزز حضور علامتك التجارية.">Beautiful, intuitive designs that engage users and enhance your brand presence.</p>
+                </div>
+
+                <!-- Mobile Development -->
+                <div class="service-card group relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-xl p-8 hover:border-cyan-500/50 transition">
+                    <div class="mb-4 inline-block p-3 rounded-lg bg-cyan-500/10 group-hover:bg-cyan-500/20 transition">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3" data-en="Mobile Development" data-ar="تطوير تطبيقات الجوال">Mobile Development</h3>
+                    <p class="text-slate-400 leading-relaxed" data-en="Native and cross-platform mobile apps that deliver seamless user experiences." data-ar="تطبيقات جوال أصلية ومتعددة الأنظمة توفر تجارب مستخدم سلسة.">Native and cross-platform mobile apps that deliver seamless user experiences.</p>
+                </div>
+
+                <!-- Digital Strategy -->
+                <div class="service-card group relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-xl p-8 hover:border-cyan-500/50 transition">
+                    <div class="mb-4 inline-block p-3 rounded-lg bg-cyan-500/10 group-hover:bg-cyan-500/20 transition">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3" data-en="Digital Strategy" data-ar="الإستراتيجية الرقمية">Digital Strategy</h3>
+                    <p class="text-slate-400 leading-relaxed" data-en="Strategic planning to transform your digital presence and achieve business goals." data-ar="التخطيط الإستراتيجي لتحويل حضورك الرقمي وتحقيق أهداف عملك.">Strategic planning to transform your digital presence and achieve business goals.</p>
+                </div>
+
+                <!-- Security -->
+                <div class="service-card group relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-xl p-8 hover:border-cyan-500/50 transition">
+                    <div class="mb-4 inline-block p-3 rounded-lg bg-cyan-500/10 group-hover:bg-cyan-500/20 transition">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3" data-en="Security & Optimization" data-ar="الأمان والتحسين">Security & Optimization</h3>
+                    <p class="text-slate-400 leading-relaxed" data-en="Enterprise-grade security and performance optimization for your applications." data-ar="أمان بمستوى المؤسسات وتحسين الأداء لتطبيقاتك.">Enterprise-grade security and performance optimization for your applications.</p>
+                </div>
+
+                <!-- Analytics -->
+                <div class="service-card group relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-xl p-8 hover:border-cyan-500/50 transition">
+                    <div class="mb-4 inline-block p-3 rounded-lg bg-cyan-500/10 group-hover:bg-cyan-500/20 transition">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3" data-en="Analytics & Insights" data-ar="التحليلات والرؤى">Analytics & Insights</h3>
+                    <p class="text-slate-400 leading-relaxed" data-en="Data-driven solutions to understand and grow your business efficiently." data-ar="حلول مدفوعة بالبيانات لفهم وتنمية عملك بكفاءة.">Data-driven solutions to understand and grow your business efficiently.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Contact Section -->
+    <section id="contact" class="relative py-24 px-4 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 overflow-hidden">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4" data-en="Get In Touch" data-ar="تواصل معنا">Get In Touch</h2>
+                <p class="text-xl text-slate-400" data-en="Have a project in mind? Let's talk about it" data-ar="هل لديك مشروع في الاعتبار؟ دعنا نتحدث عنه">Have a project in mind? Let's talk about it</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div class="contact-info-card bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition group">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 rounded-lg bg-cyan-500/10 group-hover:bg-cyan-500/20 transition">
+                                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-white mb-1" data-en="Email" data-ar="البريد الإلكتروني">Email</h3>
+                                <p class="text-slate-400">hello@devyacode.com</p>
+                                <p class="text-slate-500 text-sm mt-1" data-en="We'll respond within 24 hours" data-ar="سنرد في غضون 24 ساعة">We'll respond within 24 hours</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition group">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 rounded-lg bg-cyan-500/10 group-hover:bg-cyan-500/20 transition">
+                                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-white mb-1" data-en="Phone" data-ar="الهاتف">Phone</h3>
+                                <p class="text-slate-400">+20 1508130700</p>
+                                <p class="text-slate-500 text-sm mt-1" data-en="Sunday to Friday, 9AM-9PM EST" data-ar="الاحد إلى الجمعة، 9 صباحاً - 9 مساءً EST">Sunday to Friday, 9AM-9PM EST</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition group">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 rounded-lg bg-cyan-500/10 group-hover:bg-cyan-500/20 transition">
+                                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-white mb-1" data-en="Location" data-ar="الموقع">Location</h3>
+                                <p class="text-slate-400">Egypt</p>
+                                <p class="text-slate-400">Alexandria, Muharmbak</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-gradient-to-br contact-info-card from-slate-800/10 to-slate-900/10 backdrop-blur-sm border border-slate-700 rounded-xl p-8">
+                    <form id="contactForm" class="space-y-5" onsubmit="handleContact(event)">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2" data-en="Full Name" data-ar="الاسم الكامل">Full Name</label>
+                            <input type="text" name="name" placeholder="Your name" class="w-full px-4 py-3 rounded-lg bg-slate-900/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2" data-en="Email Address" data-ar="عنوان البريد الإلكتروني">Email Address</label>
+                            <input type="email" name="email" placeholder="your@email.com" class="w-full px-4 py-3 rounded-lg bg-slate-900/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2" data-en="Subject" data-ar="الموضوع">Subject</label>
+                            <input type="text" name="subject" placeholder="Project inquiry" class="w-full px-4 py-3 rounded-lg bg-slate-900/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-300 mb-2" data-en="Message" data-ar="الرسالة">Message</label>
+                            <textarea name="message" placeholder="Tell us about your project..." rows="5" class="w-full px-4 py-3 rounded-lg bg-slate-900/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition resize-none" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-semibold rounded-lg transition" data-en="Send Message" data-ar="إرسال الرسالة">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 text-slate-400 py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="text-xl font-bold mb-3">
+                        <span class="text-cyan-400">Devya</span><span class="text-white"> Code</span>
+                    </div>
+                    <p class="text-sm text-slate-500" data-en="Professional web development services for ambitious businesses" data-ar="خدمات تطوير ويب احترافية للشركات الطموحة">Professional web development services for ambitious businesses</p>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-white mb-4" data-en="Services" data-ar="الخدمات">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#services" class="hover:text-cyan-400 transition" data-en="Services" data-ar="الخدمات">Services</a></li>
+                        <li><a href="#about" class="hover:text-cyan-400 transition" data-en="About" data-ar="عننا">About</a></li>
+                        <li><a href="#contact" class="hover:text-cyan-400 transition" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold text-white mb-4" data-en="Contact" data-ar="اتصل بنا">Contact</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><span data-en="Email: info@devya.com" data-ar="البريد الإلكتروني: info@devya.com">Email: info@devya.com</span></li>
+                        <li><span data-en="Phone: +20 1508130700" data-ar="الهاتف: +20 1508130700">Phone: +20 1508130700</span></li>
+                        <li><span data-en="Web: www.devya.com" data-ar="الويب: www.devya.com">Web: www.devya.com</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
+                <p><span data-en="© 2025 Devya Code. All rights reserved." data-ar="© 2025 ديفيا كود. جميع الحقوق محفوظة.">© 2025 Devya Code. All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = 'en';
+        let isDarkMode = false;
+
+        // Initialize language and dark mode from localStorage
+        function init() {
+            const savedLang = localStorage.getItem('language') || 'en';
+            const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+            
+            currentLang = savedLang;
+            isDarkMode = savedDarkMode;
+            
+            updateLanguage();
+            updateDarkMode();
+        }
+
+        // Language toggle
+        document.getElementById('langToggle').addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            localStorage.setItem('language', currentLang);
+            updateLanguage();
+        });
+
+        document.getElementById('darkToggle').addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            localStorage.setItem('darkMode', isDarkMode);
+            updateDarkMode();
+        });
+
+        function updateLanguage() {
+            // Update button text
+            document.getElementById('langToggle').textContent = currentLang === 'en' ? 'EN' : 'AR';
+            
+            // Update HTML dir and lang
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            
+            const direction = currentLang === 'ar' ? '-30px' : '30px';
+            document.documentElement.style.setProperty('--toggle-direction', direction);
+            
+            // Update all data attributes
+            document.querySelectorAll('[data-en]').forEach(el => {
+                if (currentLang === 'en') {
+                    el.textContent = el.getAttribute('data-en');
+                } else if (el.hasAttribute('data-ar')) {
+                    el.textContent = el.getAttribute('data-ar');
+                }
+            });
+        }
+
+        function updateDarkMode() {
+            const html = document.documentElement;
+            const toggle = document.getElementById('darkToggle');
+            const body = document.body;
+            
+            if (isDarkMode) {
+                html.classList.add('dark');
+                body.classList.remove('light-mode');
+                toggle.classList.add('active');
+            } else {
+                html.classList.remove('dark');
+                body.classList.add('light-mode');
+                toggle.classList.remove('active');
+            }
+        }
+
+        // Form handlers
+        function handleSubscribe(e) {
+            e.preventDefault();
+            alert(currentLang === 'en' ? 'Thank you for subscribing!' : 'شكراً لاشتراكك!');
+            e.target.reset();
+        }
+
+        function handleContact(e) {
+            e.preventDefault();
+            alert(currentLang === 'en' ? 'Message sent successfully! We will be in touch soon.' : 'تم إرسال الرسالة بنجاح! سنتواصل معك قريباً.');
+            e.target.reset();
+        }
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>
